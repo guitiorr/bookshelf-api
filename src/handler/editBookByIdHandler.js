@@ -3,7 +3,26 @@ const books = require("../object/books");
 
 const editBookByIdHandler = (request, h) => {
     const { id } = request.params;
-    const { title, author, genre, language } = request.payload;
+    const { name, publisher, pageCount, pageRead } = request.payload;
+
+    //Klo gaada nama
+    if(!name){
+        const response = h.response({
+            status: 'fail',
+            message: 'Tidak ada nama buku'
+        })
+        response.code(400);
+        return response;
+    }
+
+    if(pageCount < pageRead){
+        const response = h.response({
+            status: 'fail',
+            message: 'pageRead larger than pageCount'
+        })
+        response.code(400);
+        return response;
+    }
     
     const updatedAt = new Date().toISOString();
 
@@ -14,26 +33,23 @@ const editBookByIdHandler = (request, h) => {
     if(index !== -1){
         books[index] = {
             ...books[index],
-            title,
-            author, 
-            genre, 
-            language,
+            name, publisher, pageCount, pageRead,
             updatedAt
         }
 
         const response = h.response({
             status: 'success',
-            code: 200,
-            message: `Book ${id} successfully updated`
+            message: 'Buku berhasil diperbarui'
         })
+        response.code(201);
         return response;
     }
     else{
         const response = h.response({
             status: 'fail',
-            code: 404,
-            message: `Book ${id} not found`
+            message: "Gagal memperbarui buku. Id tidak ditemukan"
         })
+        response.code(404);
         return response;
     }
 

@@ -2,12 +2,12 @@ const { nanoid } = require("nanoid");
 const books = require("../object/books.js");
 
 const insertNewBookHandler = (request, h) => {
-  const { title, author, genre, language, pageCount, pageRead} = request.payload;
+  const { name, publisher, pageCount, pageRead} = request.payload;
   const id = "BK-" + nanoid(3).toString();
   // const id = nanoid(3);
 
   //Klo gak ada title
-  if (!title) {
+  if (!name) {
     const response = h.response({
       status: "fail",
       message: "Gagal menambahkan buku. Mohon isi nama buku.",
@@ -30,20 +30,17 @@ const insertNewBookHandler = (request, h) => {
 
   const newBook = {
     id,
-    title,
-    author,
-    genre,
-    language,
+    name,
+    publisher,
     insertedAt,
     updatedAt,
-    pageCount
+    pageCount,
+    pageRead
   };
 
   books.push(newBook);
 
   const isSuccess = books.some((book) => book.id === id);
-
-  if(title )
 
   if (isSuccess) {
     const response = h.response({

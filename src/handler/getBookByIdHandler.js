@@ -8,20 +8,20 @@ const getBookByIdHandler = (request, h) =>{
     if(book !== undefined){
         const response = h.response({
             status: 'success',
-            code: 201,
             message : `Book ID ${id} found`,
             data: {
                 book
             }
         });
+        response.code(201);
         return response;
     }
     else{
         const response = h.response({
             status: 'fail',
-            message: `Book ID ${id} not found`,
-            code: 404,
+            message: `Buku tidak ditemukan`,
         })
+        response.code(404);
         return response;
     }
 
