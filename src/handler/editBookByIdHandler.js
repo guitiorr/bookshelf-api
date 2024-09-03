@@ -23,7 +23,7 @@ const editBookByIdHandler = (request, h) => {
     });
     response.code(400);
     return response;
-  } else if (pageRead > pageCount) {
+  } else if (readPage > pageCount) {
     const response = h.response({
       status: "fail",
       message: "Jumlah halaman yang sudah dibaca lebih dari total halaman.",
