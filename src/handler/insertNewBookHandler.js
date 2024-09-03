@@ -2,7 +2,7 @@ const { nanoid } = require("nanoid");
 const books = require("../object/books.js");
 
 const insertNewBookHandler = (request, h) => {
-  const { name, publisher, pageCount, pageRead} = request.payload;
+  const { name, publisher, year, pageCount, pageRead} = request.payload;
   const id = "BK-" + nanoid(3).toString();
   // const id = nanoid(3);
 
@@ -10,7 +10,7 @@ const insertNewBookHandler = (request, h) => {
   if (!name) {
     const response = h.response({
       status: "fail",
-      message: "Gagal menambahkan buku. Mohon isi nama buku.",
+      message: "Gagal menambahkan buku. Mohon isi nama buku",
     });
     response.code(400);
     return response;
@@ -32,10 +32,11 @@ const insertNewBookHandler = (request, h) => {
     id,
     name,
     publisher,
-    insertedAt,
-    updatedAt,
+    year,
     pageCount,
-    pageRead
+    pageRead,
+    insertedAt,
+    updatedAt
   };
 
   books.push(newBook);
