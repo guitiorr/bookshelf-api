@@ -26,7 +26,7 @@ const editBookByIdHandler = (request, h) => {
   } else if (readPage > pageCount) {
     const response = h.response({
       status: "fail",
-      message: "Jumlah halaman yang sudah dibaca lebih dari total halaman.",
+      message: "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
     });
     response.code(400);
     return response;
