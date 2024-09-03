@@ -2,8 +2,18 @@ const books = require("../object/books");
 
 const editBookByIdHandler = (request, h) => {
   const { id } = request.params;
-  const { name, publisher, year, author, pageCount, readPage, summary } =
-    request.payload;
+  const {
+    name,
+    publisher,
+    year,
+    author,
+    pageCount,
+    readPage,
+    summary,
+    reading,
+  } = request.payload;
+
+  let finished = false;
 
   //Klo gaada nama
   if (!name) {
@@ -21,9 +31,7 @@ const editBookByIdHandler = (request, h) => {
     response.code(400);
     return response;
   } else if (readPage === pageCount) {
-    const finished = true;
-  } else {
-    const finished = false;
+    finished = true;
   }
 
   const updatedAt = new Date().toISOString();
@@ -35,14 +43,14 @@ const editBookByIdHandler = (request, h) => {
     books[index] = {
       ...books[index],
       name,
-      publisher,
       year,
       author,
+      summary,
+      publisher,
       pageCount,
       readPage,
       finished,
-      summary,
-      insertedAt,
+      reading,
       updatedAt,
     };
 

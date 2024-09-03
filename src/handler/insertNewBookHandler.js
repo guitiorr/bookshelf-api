@@ -2,8 +2,18 @@ const { nanoid } = require("nanoid");
 const books = require("../object/books.js");
 
 const insertNewBookHandler = (request, h) => {
-  const { name, publisher, year, author, pageCount, readPage, summary  } = request.payload;
+  const {
+    name,
+    publisher,
+    year,
+    author,
+    pageCount,
+    readPage,
+    summary,
+    reading,
+  } = request.payload;
   const id = "BK-" + nanoid(3).toString();
+  let finished = false;
   // const id = nanoid(3);
 
   //Klo gak ada title
@@ -14,19 +24,15 @@ const insertNewBookHandler = (request, h) => {
     });
     response.code(400);
     return response;
-  } else if (readPage  > pageCount) {
+  } else if (readPage > pageCount) {
     const response = h.response({
       status: "fail",
       message: "Jumlah halaman yang sudah dibaca lebih dari total halaman.",
     });
     response.code(400);
     return response;
-  }
-  else if(readPage === pageCount){
-    const finished = true;
-  }
-  else{
-    const finished = false;
+  } else if (readPage === pageCount) {
+    finished = true;
   }
 
   const insertedAt = new Date().toISOString();
@@ -35,13 +41,14 @@ const insertNewBookHandler = (request, h) => {
   const newBook = {
     id,
     name,
-    publisher,
     year,
     author,
+    summary,
+    publisher,
     pageCount,
     readPage,
     finished,
-    summary,
+    reading,
     insertedAt,
     updatedAt,
   };
