@@ -2,7 +2,7 @@
 
 Book object attributes (not really fixed so you can make up any attributes since it is stored in a local array when the program runs):
 
-id, name, publisher, year, author, pageCount, pageRead
+id, name, publisher, year, author, pageCount, pageRead, finished (boolean)
 
 
 **
